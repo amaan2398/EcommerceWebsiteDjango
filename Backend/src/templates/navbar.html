@@ -1,0 +1,17 @@
+{% extends "header.html"%}
+{% block nav_bar%}
+<div class="row">
+    <div class="col-md-8">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="{{a.0}}"><a href="."><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li role="presentation" class="{{a.1}}"><a href=".">Profile</a></li>
+            <li role="presentation" class="{{a.2}}"><a href=".">Messages</a></li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
+    </div>
+</div>
+{% block content %}
+{% endblock %}
+{% endblock%}
