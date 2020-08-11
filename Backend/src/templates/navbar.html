@@ -4,12 +4,32 @@
     <div class="col-md-8">
         <ul class="nav nav-tabs">
             <li role="presentation" class="{{a.0}}"><a href="."><span class="glyphicon glyphicon-home"></span> Home</a></li>
-            <li role="presentation" class="{{a.1}}"><a href=".">Profile</a></li>
+            <li role="presentation" class="{{a.1}}"><a href="."><span class="glyphicon glyphicon-shopping-cart" ></span> Cart</a></li>
             <li role="presentation" class="{{a.2}}"><a href=".">Messages</a></li>
         </ul>
     </div>
     <div class="col-md-4">
-        <button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
+        {% if user.is_authenticated%}
+        <div class="btn-group navbar-right">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hi, {{user.first_name|title}} ...<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="">Edit Profile</a></li>
+              <li><a href="">Shipment</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+        {% else %}
+            <div class="col-md-4 navbar-right">
+                <a href="accounts/login" class="btn btn-primary " ><span class="glyphicon glyphicon-log-in"></span> Log In </a> 
+            </div>
+            <div class="col-md-3 navbar-right">
+                <a href="accounts/register" class="btn btn-default" ><span class="glyphicon glyphicon-expand"></span> Sign In </a> 
+            </div>          
+        {% endif %}
+        
     </div>
 </div>
 {% block content %}

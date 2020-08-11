@@ -8,4 +8,5 @@ def index(request):
     for i,j in enumerate(data):
         if len(j.description) > 33:
             data[i].description = j.description[:33]+'...'
-    return render(request,"index.html",{'data' : data,"a":['active','','']})
+    a = ['active','','']
+    return render(request,"index.html",{'data' : data,"a": a})

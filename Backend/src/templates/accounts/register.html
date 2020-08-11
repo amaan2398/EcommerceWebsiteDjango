@@ -1,0 +1,52 @@
+{% extends "../header.html"%}
+
+{%block register%}
+<h3>Register from !!</h3>
+<form action="" method="POST" class="col-md-7">{% csrf_token %}
+    <div class="form-group col-md-11">
+        <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-user"> </span></div>
+        <input type="text" class=" form-control" name="uname" placeholder="User Name">
+        </div>
+    </div>
+    <div class="form-inline col-md-11">
+        <div class="form-group col-md-6">
+            <div class="input-group">
+                <div class="input-group-addon"><label for="exampleInputEmail1">First Name</label></div>
+            <input type="text" class="form-control" name="fname"  placeholder="First Name ...">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-group">
+                <div class="input-group-addon"><label for="exampleInputEmail1">Last Name</label></div>
+            <input type="text" class="form-control" name="lname" placeholder="Last Name ...">
+            </div>
+        </div>
+        <br>
+        <hr>
+    </div>
+    <br>
+    <div class="form-group col-md-11">
+        <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+            <input type="email" class="form-control" name="email" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group col-md-11">
+        <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div><input type="password" class="form-control" name="pass1" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group col-md-11">
+        <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div><input type="password" class="form-control" name="pass2" placeholder="Confirm Password">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+<div class="col-md-5">
+{% for message in messages%}
+<div class="alert alert-danger" role="alert"><strong>Oh snap! </strong>{{message}}</div>
+{% endfor %}
+</div>
+{%endblock%}
