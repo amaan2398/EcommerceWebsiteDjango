@@ -1,0 +1,38 @@
+{% extends "../navbar.html" %}
+{% block cart %}
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h3><span class="glyphicon glyphicon-list-alt"></span> Shopping Cart list</h3></div>
+  <!-- Table -->
+  <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Price <small style= "font-style: italic !important; font-size: xx-small;">(per 1 qnt.)</small></th>
+            <th>Quentity</th>
+            <th>Total Amount</th>
+            <th>Delete Item</th>
+        </tr>
+  {% for d in data %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{d.p_id}}</td>
+        <td>{{d.p_name}}</td>
+        <td>{{d.price}}</td>
+        <td><a href="../cart/addrm_pro_qnt/{{d.p_id}}/0" role="button" class="btn btn-defalt"><span class="glyphicon glyphicon-minus"></span></a>{{d.quantity}}<a href="../cart/addrm_pro_qnt/{{d.p_id}}/1" role="button" class="btn btn-defalt"><span class="glyphicon glyphicon-plus"></span></a></td>
+        <td>{{d.amount_t}}</td>
+        <td><a href="../cart/pro_remove/{{d.p_id}}" role="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Remove</a></td>
+    </tr>
+  {% endfor %}
+  <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total Amount: {{fdata.total}}</th>
+      <th><a href="" role="button" class="btn btn-success"><span class="glyphicon glyphicon-barcode"></span> Checkout process</a></th>
+  </tr>
+</table>
+</div>
+{% endblock  %}
