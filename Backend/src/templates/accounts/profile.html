@@ -1,0 +1,40 @@
+{% extends "navbar.html" %}
+{% block profile%}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+<h3>Profile</h3>
+<center>
+    <h1><span class="glyphicon glyphicon-user"></span></h1>
+    <h3>{{data.first_name | title}} {{data.last_name | title}}</h3>
+    <h5>{{data.email}}</h5>
+</center>
+<div style="float:right;">
+    <a href="" class="btn"><span class="glyphicon glyphicon-pencil" style="color: white;"></span></a>
+    
+</div>
+<h5>_</h5>
+</div>
+<div style="padding: 5px 5px 5px 5px;">
+<div class="panel panel-default" >
+    <div class="panel-heading">
+      <h3 class="panel-title">My Address</h3>
+    </div>
+    <div class="panel-body">
+      Panel content
+    </div>
+  </div>
+</div>
+
+<div style="padding: 5px 5px 5px 5px;">
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+          <h3 class="panel-title">My Orders</h3>
+        </div>
+        <div class="panel-body">
+          Panel content
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

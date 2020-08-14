@@ -1,8 +1,69 @@
 {%extends "../navbar.html"%}
 {% block showproduct %}
-<h3>{{data.id}}</h3>
-<h1>{{data.name}}</h1>
-<img src="{{data.image.url}}" alt="...">
-{{data.price}}
-{{data.description}}
+<div class="page-header">
+    <h1>{{data.name}} <small>{{data.name}} </small></h1>
+  </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" style="padding-top: 20px;">
+            <img src="{{data.image.url}}" alt="...">
+        </div>
+        <div class="col-md-8">
+            <h3>Product Id: {{data.id}}</h3>
+            <div style="height: 150px;">
+                {{data.description}}
+            </div>
+            <div>
+                <h3>₹ {{data.price}}</h3>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                        <p>
+                            <a href="../cart/addtocart/{{data.id}}" class="btn btn-primary right" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart </a>
+                        </p>
+                        {% else %}    
+                        <p>
+                            <a class="btn btn-primary right" role="button" disabled = "disabled" data-toggle="tooltip" data-placement="top" title="Log In/Sign In please!"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart </a>
+                        </p>
+                        {% endif %}
+            </div>
+        </div>
+    </div>
+    <div>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        (122 Reviews)
+    </div>
+    <div>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        (24 Reviews)
+    </div>
+    <div>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        (12 Reviews)
+    </div>
+    <div>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        (8 Reviews)
+    </div>
+    <div>
+        <span class="glyphicon glyphicon-star"></span>
+        (5 Reviews)
+    </div>
+    <div>
+        (2 Reviews)
+    </div>
+</div>
+
+
+
 {% endblock  %}
