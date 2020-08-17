@@ -9,6 +9,7 @@ def register(request):
         fname = request.POST['fname']
         lname = request.POST['lname']
         uname = request.POST['uname']
+        
         email = request.POST['email']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']

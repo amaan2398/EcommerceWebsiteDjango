@@ -12,13 +12,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cart',
+            name='Address',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('customer_id', models.IntegerField()),
-                ('product_id', models.IntegerField()),
-                ('product_quantity', models.IntegerField()),
-                ('shipment', models.BooleanField(default=False)),
+                ('street_address', models.CharField(max_length=125)),
+                ('city', models.CharField(max_length=30)),
+                ('state', models.CharField(max_length=30)),
+                ('country', models.CharField(max_length=30)),
+                ('postcode', models.CharField(max_length=10)),
             ],
         ),
     ]

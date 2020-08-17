@@ -4,13 +4,14 @@ from cart.models import Cart
 #from django.http import HttpResponse
 
 def cart_data_add(cid):
-    data = Cart.objects.filter(customer_id=cid)
+    data = Cart.objects.filter(customer_id=cid,shipment=False)
     data = dict({"count":len(data)})
     return data
 
 # Create your views here.
 def index(request):
     data = Product.objects.all()
+    print( [i for i in data])
     for i,j in enumerate(data):
         if len(j.description) > 33:
             data[i].description = j.description[:33]+'...'
