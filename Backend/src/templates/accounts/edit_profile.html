@@ -1,0 +1,39 @@
+{% extends "navbar.html" %}
+{% block edit_profile %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+<h3><span class="glyphicon glyphicon-user"></span> Edit Profile</h3>
+</div>
+<form action="" method="POST">
+  <div style="float:right;">
+    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-floppy-disk" ></span> Save</button>
+  </div>
+  <div style="padding: 15px 15px 15px 15px;">
+  <label>First Name</label>
+  <input type="text" value="{{data.first_name | title}}">
+  <label >Last Name</label>
+  <input type="text" value="{{data.last_name | title}}">
+  <h5>{{data.email}}</h5>
+  </div>
+  <div style="padding: 15px 15px 15px 15px;">
+  <div class="panel panel-default" >
+      <div class="panel-heading">
+        <h3 class="panel-title">My Address</h3>
+      </div>
+      <div class="panel-body">
+        {% for i in address %}
+            {% if i.default_add %}
+            <input type="radio" value ="address" checked><label>{{i.street_address}},{{i.city}},{{i.state}},{{i.country}},{{i.postcode}}</label>
+            {% else %}  
+            <input type="radio" value ="address" ><label>{{i.street_address}},{{i.city}},{{i.state}},{{i.country}},{{i.postcode}}</label>
+            {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  
+  <a href="../profile/" role="button" class="btn btn-default">Cancel</a>
+  <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-floppy-disk" ></span> Save</button>
+</div>
+</form>
+</div>
+{% endblock %}

@@ -8,3 +8,4 @@ class Address(models.Model):
     state = models.CharField(max_length = 30)
     country = models.CharField(max_length = 30)
     postcode = models.CharField(max_length=10)
+    default_add = models.BooleanField(default=True)

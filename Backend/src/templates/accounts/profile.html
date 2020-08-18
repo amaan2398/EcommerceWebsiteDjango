@@ -9,7 +9,7 @@
     <h5>{{data.email}}</h5>
 </center>
 <div style="float:right;">
-    <a href="" class="btn"><span class="glyphicon glyphicon-pencil" style="color: white;"></span></a>
+    <a href="../edit_profile/" class="btn"><span class="glyphicon glyphicon-pencil" style="color: white;"></span></a>
     
 </div>
 <h5>_</h5>
@@ -20,7 +20,15 @@
       <h3 class="panel-title">My Address</h3>
     </div>
     <div class="panel-body">
-      Panel content
+      {% for i in address %}
+          {% if i.default_add %}
+          <input type="radio" value ="address" checked><label>{{i.street_address}},{{i.city}},{{i.state}},{{i.country}},{{i.postcode}}</label>
+          {% else %}  
+          <input type="radio" value ="address" ><label>{{i.street_address}},{{i.city}},{{i.state}},{{i.country}},{{i.postcode}}</label>
+          {% endif %}
+            
+          
+      {% endfor %}
     </div>
   </div>
 </div>
