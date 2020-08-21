@@ -1,7 +1,7 @@
 {% extends "navbar.html" %}
 {% block profile%}
 <div class="panel panel-primary">
-    <div class="panel-heading">
+  <div class="panel-heading">
 <h3>Profile</h3>
 <center>
     <h1><span class="glyphicon glyphicon-user"></span></h1>
@@ -9,25 +9,25 @@
     <h5>{{data.email}}</h5>
 </center>
 <div style="float:right;">
-    <a href="../edit_profile/" class="btn"><span class="glyphicon glyphicon-pencil" style="color: white;"></span></a>
-    
+    <button type="button" class="btn" data-toggle="modal" data-target="#myModal" style="background: transparent;"><span class="glyphicon glyphicon-pencil" style="color: white;"></span></button>
 </div>
 <h5>_</h5>
 </div>
-<div style="padding: 5px 5px 5px 5px;">
+<div style="padding: 5px 5px 0px 5px;">
 <div class="panel panel-default" >
     <div class="panel-heading">
-      <h3 class="panel-title">My Address</h3>
+      <div style="float:right;">
+        <a href="../edit_address/" class="btn"><span class="glyphicon glyphicon-pencil"></span></a>
+    </div>      
+    <h3 class="panel-title" style="padding-bottom: 10px;">My Address</h3>
     </div>
     <div class="panel-body">
       {% for i in address %}
           {% if i.default_add %}
-          <input type="radio" value ="address" checked><label>{{i.street_address}},{{i.city}},{{i.state}},{{i.country}},{{i.postcode}}</label>
+          <input type="radio" value ="address" checked><address> <strong>{{i.street_address}},</strong><br>{{i.city}}, {{i.state}},<br>{{i.country}},<br>{{i.postcode}}</address>
           {% else %}  
-          <input type="radio" value ="address" ><label>{{i.street_address}},{{i.city}},{{i.state}},{{i.country}},{{i.postcode}}</label>
+          <input type="radio" value ="address" disabled><address> <strong>{{i.street_address}},</strong><br>{{i.city}}, {{i.state}},<br>{{i.country}},<br>{{i.postcode}}</address>
           {% endif %}
-            
-          
       {% endfor %}
     </div>
   </div>
@@ -44,5 +44,39 @@
     </div>
 </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <form action="" method="POST">{% csrf_token %}
+      <div class="modal-body">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" value="{{data.first_name | title}}" id ="fname" name="fname" class="form-control" style="width: 50%;">
+        </div>
+      
+        <div class="form-group">
+          <label for="">Last Name</label>
+          <input type="text" value="{{data.last_name | title}}" id="lname" name="lname" class="form-control" style="width: 50%;">
+        </div>
+    
+        <div class="form-group">
+          <label>Email</label><br>
+          <strong>{{data.email}}</strong>
+        </div>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

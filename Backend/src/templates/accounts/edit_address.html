@@ -1,0 +1,101 @@
+{% extends "navbar.html" %}
+{% block edit_address %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div style="float:right;">
+            <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> New Address</button>
+        </div>
+        <div style="float:left;">
+            <a href="../profile/" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> back</a>
+        </div>
+        <br>
+<h3><span class="glyphicon glyphicon-home"></span> Edit Address</h3>
+</div>
+<div style="padding: 30px 30px 30px 30px;">
+    
+    {% for i in address %}
+        <div class="row">
+            <div class="col-md-8">
+                
+        {% if i.default_add %}
+            <input type="radio" value ="address" checked><address> <strong>{{i.street_address}},</strong><br>{{i.city}}, {{i.state}},<br>{{i.country}},<br>{{i.postcode}}</address>
+        {% else %}  
+            <input type="radio" value ="address" disabled><address> <strong>{{i.street_address}},</strong><br>{{i.city}}, {{i.state}},<br>{{i.country}},<br>{{i.postcode}}</address>
+        {% endif %}
+            </div>
+            <div class="col-md-4">
+                <center>
+        {% if cnt > 1 %}
+            <a href="../remove_address/{{i.id}}" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+        {% else %}
+            <button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-remove"></span> Remove</button>
+        {% endif %}
+            </div>
+        </center>
+        </div>   
+    {% endfor %}
+        
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">New Address</h4>
+        </div>
+        <form action="" method="POST"> {% csrf_token %} 
+        <div class="modal-body">
+            <div class="form-group col-md-11">
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-home"></span></div>
+                    <input type="text" class="form-control" name="address" placeholder="Address">
+                </div>
+            </div>
+        
+            <div class="form-inline col-md-11">
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-addon"><label for="exampleInputEmail1">City Name</label></div>
+                    <input type="text" class="form-control" name="city"  placeholder="City Name ...">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-addon"><label for="exampleInputEmail1">State Name</label></div>
+                    <input type="text" class="form-control" name="state" placeholder="State Name ...">
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+            <br>
+            <div class="form-inline col-md-11">
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-addon"><label for="exampleInputEmail1">Country Name</label></div>
+                    <input type="text" class="form-control" name="country"  placeholder="Country Name ...">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-addon"><label for="exampleInputEmail1">Post code</label></div>
+                    <input type="text" class="form-control" name="postcode" placeholder="Post Code ...">
+                    </div>
+                </div>
+                <br>
+                <hr>
+            </div>
+            <br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

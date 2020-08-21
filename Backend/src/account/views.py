@@ -62,14 +62,46 @@ def logout(request):
     return redirect("/")
 
 def profile(request):
-    data = request.user
-    address = Address.objects.all()
-    return render(request,"accounts/profile.html",{"data" : data,"address":address})
-
-def edit_profile(request):
     if request.method == "POST":
-        pass
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        user = User.objects.get(id = request.user.id)
+        user.first_name = fname
+        user.last_name = lname
+        user.save()
+        return redirect("profile")
     elif request.method == "GET":
         data = request.user
-        address = Address.objects.all()
-        return render(request,"accounts/edit_profile.html",{"data" : data,"address":address})
+        address = Address.objects.filter(customer_id=data.id)
+        return render(request,"accounts/profile.html",{"data" : data,"address":address})
+
+def edit_address(request):
+    if request.method == "POST":
+        address = request.POST['address']
+        city = request.POST['city']
+        state = request.POST['state']
+        country = request.POST['country']
+        postcode = request.POST['postcode']
+        address = Address(customer_id=request.user.id,street_address=address,city=city,state=state,country=country,postcode=postcode,default_add=False)
+        address.save()
+        return redirect("profile")
+    elif request.method == "GET":
+        data = request.user
+        address = Address.objects.filter(customer_id=data.id)
+        cnt = len(address)
+        return render(request,"accounts/edit_address.html",{"data" : data,"address":address,"cnt":cnt})
+
+def remove_address(request,id):
+    data = Address.objects.filter(id = id)
+    if data[0].default_add == True:
+        data.delete()
+        del data
+        try:
+            data = Address.objects.get(customer_id=request.user.id)
+        except MultipleObjectsReturned:
+            data = Address.objects.get(customer_id=request.user.id)[0]
+        data.default_add = True
+        data.save()
+    else:
+        data.delete()
+    return redirect("edit_address")
