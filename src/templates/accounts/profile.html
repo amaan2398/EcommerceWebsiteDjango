@@ -1,27 +1,39 @@
 {% extends "navbar.html" %}
 {% block profile%}
-<div class="panel panel-primary">
-  <div class="panel-heading">
+<br>
+
+<div class="card rounded-lg">
+  <div class="card-header">
 <h3>Profile</h3>
 <center>
-    <h1><span class="glyphicon glyphicon-user"></span></h1>
+    <h1><svg width="100px" height="100px" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+      <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+      <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+    </svg></h1>
     <h3>{{data.first_name | title}} {{data.last_name | title}}</h3>
     <h5>{{data.email}}</h5>
 </center>
 <div style="float:right;">
-    <button type="button" class="btn" data-toggle="modal" data-target="#myModal" style="background: transparent;"><span class="glyphicon glyphicon-pencil" style="color: white;"></span></button>
+    <button type="button" class="btn" data-toggle="modal" data-target="#myModal" style="background: transparent;"><svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+      <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+    </svg></button>
 </div>
 <h5>_</h5>
 </div>
 <div style="padding: 5px 5px 0px 5px;">
-<div class="panel panel-default" >
-    <div class="panel-heading">
+<div class="card rounded-lg" >
+    <div class="card-header">
       <div style="float:right;">
-        <a href="../edit_address/" class="btn"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a href="../edit_address/" class="btn"><svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+          <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+        </svg></a>
     </div>      
-    <h3 class="panel-title" style="padding-bottom: 10px;">My Address</h3>
+    <h5 class="card-title">My Address</h5>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       {% for i in address %}
           {% if i.default_add %}
           <input type="radio" value ="address" checked><address> <strong>{{i.street_address}},</strong><br>{{i.city}}, {{i.state}},<br>{{i.country}},<br>{{i.postcode}}</address>
@@ -34,9 +46,9 @@
 </div>
 
 <div style="padding: 5px 5px 5px 5px;">
-    <div class="panel panel-default" >
-        <div class="panel-heading">
-          <h3 class="panel-title">My Orders</h3>
+    <div class="card rounded-lg" >
+        <div class="card-header">
+          <h5 class="card-title">My Orders</h5>
         </div>
         <div class="panel-body">
           Panel content
@@ -47,12 +59,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">User profile edit</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        
       </div>
       <form action="" method="POST">{% csrf_token %}
       <div class="modal-body">
@@ -72,7 +85,7 @@
         </div>  
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
       </form>

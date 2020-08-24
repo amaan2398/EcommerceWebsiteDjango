@@ -1,32 +1,45 @@
 {% extends "navbar.html"%}
 
 {% block content %}
-    <div class="row">
+<br>
+    <div class="row row-cols-1 row-cols-md-4">
         {% for item in data %}
-        <a href="product/{{item.id}}">
-            <div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="{{item.image.url}}" alt="..."> 
-                    <div class="caption">
-                        <h3>{{item.name}}</h3>
-                        <p>₹ {{item.price}}</p>
-                        <p>{{item.description}}</p>
+            <div class="col mb-4" >
+                <a href="product/{{item.id}}">
+                <div class="card rounded-lg" >
+                    <img src="{{item.image.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{item.name}}</h5>
+                        <p class="card-text">₹ {{item.price}}</p>
+                        <p class="card-text">{{item.description}}</p>
                         
                         {% if user.is_authenticated %}
                         <p>
-                            <a href="cart/addtocart/{{item.id}}" class="btn btn-primary right" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart </a>
+                            <a href="cart/addtocart/{{item.id}}" class="btn btn-primary" type="button">
+                                <svg width="20px" height="20px" viewBox="0 0 20 20" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0v-2z"/>
+                                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                  </svg>
+                                   Add to Cart </a>
                         </p>
                         {% else %}    
                         <p>
-                            <a class="btn btn-primary right" role="button" disabled = "disabled" data-toggle="tooltip" data-placement="top" title="Log In/Sign In please!"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart </a>
+                            <button class="btn btn-primary right" type="button" data-toggle="tooltip" data-placement="top" title="Log In/Sign In please!" disabled>
+                                <svg width="20px" height="20px" viewBox="0 0 20 20" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0v-2z"/>
+                                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                  </svg>
+                                   Add to Cart </button>
                         </p>
                         {% endif %}
                             
                         
                     </div>
                 </div>
+                </a>
             </div>
-        </a>
         {% endfor %}
     </div>
 {% endblock %}

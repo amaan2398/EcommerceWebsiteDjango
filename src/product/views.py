@@ -11,10 +11,9 @@ def cart_data_add(cid):
 # Create your views here.
 def index(request):
     data = Product.objects.all()
-    print( [i for i in data])
     for i,j in enumerate(data):
-        if len(j.description) > 33:
-            data[i].description = j.description[:33]+'...'
+        if len(j.description) > 27:
+            data[i].description = j.description[:27]+'...'
     a = ['active','','']
     cdata = cart_data_add(request.user.id)
     return render(request,"index.html",{'data' : data,"a": a,"cdata":cdata})

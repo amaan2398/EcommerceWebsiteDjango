@@ -1,42 +1,58 @@
 {% extends "header.html"%}
 {% block nav_bar%}
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-  
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded-lg" style="background-color: #e6e6e6 !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="{{a.0}}"><a href="/"><span class="glyphicon glyphicon-home "></span> Home </a></li>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item {{a.0}}"><a class="nav-link" href="/">
+            <svg width="20px" height="20px" viewBox="1 1 10 20" class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+              <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+            </svg>
+             Home
+             </a></li>
         </ul>
-        <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated%}
-          <li role="presentation" class="{{a.1}}"><a href="/cart/"><span class="glyphicon glyphicon-shopping-cart" ></span> Cart <span class="badge">{{cdata.count}}</span></a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, {{user.first_name|title}} ... <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="../../accounts/profile">View and Edit Profile</a></li>
-              <li><a href=".">Shipment</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="../../accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-            </ul>
+          <li role="presentation" class="nav-item {{a.1}}"><a class="nav-link" href="/cart/">
+            <svg width="20px" height="20px" viewBox="1 1 10 20" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+           Cart <span class="badge badge-pill badge-success">{{cdata.count}}</span></a></li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, {{user.first_name|title}} ... </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class = "dropdown-item" href="../../accounts/profile">View and Edit Profile</a>
+              <a class = "dropdown-item" href=".">Shipment</a>
+              <div class="dropdown-divider"></div>
+              <a class = "dropdown-item" href="../../accounts/logout">Logout</a>
+            </div>
           </li>
           {% else %}
-                <li role="presentation" class="{{a.1}}" disabled="disabled" data-toggle="tooltip" data-placement="top" title="Log In/Sign In please!"><a><span class="glyphicon glyphicon-shopping-cart" ></span> Cart <span class="badge">0</span></a></li>
-                <li><a href="../../accounts/register" ><span class="glyphicon glyphicon-expand"></span> Sign In </a></li>
-                <li><a href="../../accounts/login" ><span class="glyphicon glyphicon-log-in"></span> Log In </a></li>
+                <li class="nav-item {{a.1}}" disabled="disabled" data-toggle="tooltip" data-placement="top" title="Log In/Sign In please!"><a class="nav-link disabled">
+                  <svg width="20px" height="20px" viewBox="0 0 20 20" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                  </svg>
+                   Cart <span class="badge badge-pill badge-info">0</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="../../accounts/register" ><span class="glyphicon glyphicon-expand"></span> Sign In </a></li>
+                <li class="nav-item"><a class="nav-link" href="../../accounts/login" ><span class="glyphicon glyphicon-log-in"></span> Log In </a></li>
           {% endif %}
-          <li role="presentation" class="{{a.2}}">
-            <a href="../../about/"><span class="glyphicon glyphicon-info-sign"></span> About </a>
+          <li role="presentation" class="nav-item {{a.2}}">
+            <a class="nav-link" href="../../about/">
+              <svg width="20px" height="20px" viewBox="2 2 8 16" class="bi bi-info" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                <circle cx="8" cy="4.5" r="1"/>
+              </svg>About </a>
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
   </nav>
 {% block content %}
 {% endblock %}
@@ -52,4 +68,6 @@
 {% endblock  %}
 {% block edit_address %}
 {% endblock %}
+{% block shipment %}
+{% endblock  %}
 {% endblock%}

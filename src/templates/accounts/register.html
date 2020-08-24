@@ -1,96 +1,128 @@
 {% extends "../header.html"%}
 
 {%block register%}
-<h3>Register from !!</h3>
-<form action="" method="POST" class="col-md-7">{% csrf_token %}
-    <div class="form-group col-md-11">
-        <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-user"> </span></div>
-        <input type="text" class=" form-control" name="uname" placeholder="User Name">
+<style>
+
+
+    body{
+        background: url("../../../media/svg/header.svg") no-repeat scroll,url("../../../media/svg/reg.svg") no-repeat fixed;
+        background-size: 72%,80%;
+        background-position: top right,center;
+        }
+
+</style>
+<h3 class="text-center" >Register of User</h3>
+<div class="row">
+<div class="col-md-3" style="margin-right: 5px;">
+        <img src="../../../media/svg/reg2.svg" alt="" style="padding-top: 225px;">
+    {% for message in messages%}
+    <div class="alert alert-danger" role="alert"><strong>Oh snap! </strong>{{message}}</div>
+    {% endfor %}
+</div>
+<div class="col-md-6 rounded-lg" style="background: rgb(255, 255, 255,0.8); padding-left: 50px;">
+    <br>
+<form action="" method="POST">{% csrf_token %}
+    <div class="row">
+    <div class="col-sm-11">
+        <div class="form-group">
+            <label for="uname">
+                <svg width="30px" height="30px" viewBox="2 2 18 18" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+              </svg>
+              User Name:</label>
+            <input type="text" class=" form-control" name="uname" placeholder="User Name">
         </div>
     </div>
-    <div class="form-inline col-md-11">
-        <div class="form-group col-md-6">
-            <div class="input-group">
-                <div class="input-group-addon"><label for="exampleInputEmail1">First Name</label></div>
-            <input type="text" class="form-control" name="fname"  placeholder="First Name ...">
+    <div class="col-sm-11">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="fname">First Name:</label>
+                    <input type="text" class="form-control" name="fname"  placeholder="First Name ...">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="lname">Last Name:</label>
+                    <input type="text" class="form-control" name="lname" placeholder="Last Name ...">
+                </div>
             </div>
         </div>
-        <div class="form-group col-md-6">
-            <div class="input-group">
-                <div class="input-group-addon"><label for="exampleInputEmail1">Last Name</label></div>
-            <input type="text" class="form-control" name="lname" placeholder="Last Name ...">
-            </div>
-        </div>
-        <br>
         <hr>
     </div>
-    <br>
-    
-    <div class="form-group col-md-11">
-        <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-home"></span></div>
+    <div class="col-sm-11">
+        <div class="form-group">
+            <label for="address">
+                <svg width="30px" height="30px" viewBox="0 0 18 18" class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+              </svg>
+              Address:</label>
             <input type="text" class="form-control" name="address" placeholder="Address">
         </div>
     </div>
 
-    <div class="form-inline col-md-11">
-        <div class="form-group col-md-6">
-            <div class="input-group">
-                <div class="input-group-addon"><label for="exampleInputEmail1">City Name</label></div>
-            <input type="text" class="form-control" name="city"  placeholder="City Name ...">
+    <div class="col-sm-11">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">City:</label>
+                    <input type="text" class="form-control" name="city"  placeholder="City Name ...">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">State:</label>
+                    <input type="text" class="form-control" name="state" placeholder="State Name ...">
+                </div>
             </div>
         </div>
-        <div class="form-group col-md-6">
-            <div class="input-group">
-                <div class="input-group-addon"><label for="exampleInputEmail1">State Name</label></div>
-            <input type="text" class="form-control" name="state" placeholder="State Name ...">
-            </div>
-        </div>
-        <br>
-        <br>
     </div>
-    <br>
-    <div class="form-inline col-md-11">
-        <div class="form-group col-md-6">
-            <div class="input-group">
-                <div class="input-group-addon"><label for="exampleInputEmail1">Country Name</label></div>
-            <input type="text" class="form-control" name="country"  placeholder="Country Name ...">
+    <div class="col-sm-11">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" class="form-control" name="country"  placeholder="Country Name ...">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="postcode">Zip Code:</label>
+                    <input type="text" class="form-control" name="postcode" placeholder="Post Code ...">
+                </div>
             </div>
         </div>
-        <div class="form-group col-md-6">
-            <div class="input-group">
-                <div class="input-group-addon"><label for="exampleInputEmail1">Post code</label></div>
-            <input type="text" class="form-control" name="postcode" placeholder="Post Code ...">
-            </div>
-        </div>
-        <br>
         <hr>
     </div>
-    <br>
-    
-
-    <div class="form-group col-md-11">
-        <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+    <div class="col-sm-11">
+        <div class="form-group">
+            <label for="email">
+                <svg width="30px" height="30px" viewBox="0 2 18 18" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                  </svg>
+                  Email Id:</label>
             <input type="email" class="form-control" name="email" placeholder="Email">
         </div>
     </div>
-    <div class="form-group col-md-11">
-        <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div><input type="password" class="form-control" name="pass1" placeholder="Password">
+    <div class=" col-sm-11">
+        <div class="form-group">
+            <label for="pass1">
+                <svg width="30px" height="30px" viewBox="-2 0 18 18" class="bi bi-lock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                  </svg>
+                Password:</label>
+            <input type="password" class="form-control" name="pass1" placeholder="Password">
+            <br>
+            <input type="password" class="form-control" name="pass2" placeholder="Confirm Password">
         </div>
     </div>
-    <div class="form-group col-md-11">
-        <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div><input type="password" class="form-control" name="pass2" placeholder="Confirm Password">
-        </div>
+    <div class="col-sm-11">
+        <button type="submit" class="btn btn-primary">Register</button>
     </div>
-    <button type="submit" class="btn btn-default">Register</button>
+    </div>
 </form>
-<div class="col-md-5">
-{% for message in messages%}
-<div class="alert alert-danger" role="alert"><strong>Oh snap! </strong>{{message}}</div>
-{% endfor %}
+<br>
+</div>
 </div>
 {%endblock%}

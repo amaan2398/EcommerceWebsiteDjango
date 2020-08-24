@@ -1,0 +1,14 @@
+{% extends '../navbar.html' %}
+{% block shipment %}
+<h1>HELLO WORLD</h1>
+{% for i in data %}
+  {{i.id}} <br>
+  {{i.customer_id}} <br>
+  {{i.date_time}} <br>
+  {{i.total_amount}} <br>
+{% endfor %}
+{{user}} <br>
+{% for i in cart %}
+  {{i.product_id}} <br>
+{% endfor %}
+{% endblock  %}

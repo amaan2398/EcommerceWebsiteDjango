@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
-from .models import Cart
+from .models import Cart,Shipment
 from product.models import Product
+from account.models import Address
 from django.contrib.auth.models import User,auth
 
 # Create your views here.
@@ -15,9 +16,9 @@ def cart(request):
         tamount += t_d[0].price * i.product_quantity
     fdata = dict({"total":tamount})
     cid = request.user.id
-    cdata = Cart.objects.filter(customer_id=cid,shipment=False)
     cdata = dict({"count":len(data)})
-    return render(request,"product/cart.html",{"a":a,"data":data,"fdata":fdata,"cdata":cdata})
+    address = Address.objects.filter(customer_id=cid)
+    return render(request,"product/cart.html",{"a":a,"data":data,"fdata":fdata,"address":address,"cdata":cdata})
 
 def addtocart(request,id):
     cid = request.user.id
@@ -62,6 +63,41 @@ def pro_remove(request, id):
     return redirect("cart")
 
 def checkout_products(request):
-    cid = request.user.id
-    Cart.objects.filter(customer_id= cid,shipment=False).update(shipment = True)
-    return render(request,"product/checkout.html",{})
+    if request.method == "POST":
+        add_id = request.POST['address']
+        Cart.objects.filter(customer_id=request.user.id,shipment=False).update(address_id =add_id)
+        return redirect("checkout")
+    else:
+        cid = request.user.id
+        #Cart.objects.filter(customer_id= cid,shipment=False).update(shipment = True)
+        cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
+        data = []
+        tamount = 0
+        for i in cdata:
+            t_d = Product.objects.filter(id=i.product_id)
+            data.append(dict({"p_id":i.product_id,"p_name":t_d[0].name,"price":t_d[0].price,"quantity":i.product_quantity,"amount_t":(t_d[0].price * i.product_quantity)}))
+            tamount += t_d[0].price * i.product_quantity
+        fdata = dict({"total":tamount})
+        cid = request.user.id
+        address = Address.objects.filter(customer_id=cid,id = cdata[0].address_id)
+        return render(request,"product/checkout.html",{"data":data,"fdata":fdata,"address":address})
+
+def checkout_shipment(request):
+    cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
+    tamount = 0
+    for i in cdata:
+        t_d = Product.objects.filter(id=i.product_id)
+        tamount += t_d[0].price * i.product_quantity
+    s = Shipment(customer_id=request.user.id,total_amount=tamount)
+    s.save()
+    Cart.objects.filter(customer_id= request.user.id,shipment=False).update(shipment = True,bill_id=s.id)
+    return redirect('shipment_id',s.id)
+
+def shipment(request):
+    return render(request,'product/shipment.html',{})
+
+def shipment_id(request,id):
+    data = Shipment.objects.filter(id=id)
+    user = request.user
+    cart = Cart.objects.filter(bill_id=id)
+    return render(request,'product/shipment_view.html',{'data':data,'user':user,'cart':cart})

@@ -3,6 +3,12 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from .models import Address
+from cart.models import Cart
+
+def cart_data_add(cid):
+    data = Cart.objects.filter(customer_id=cid,shipment=False)
+    data = dict({"count":len(data)})
+    return data
 
 # Create your views here.
 def register(request):
@@ -73,7 +79,8 @@ def profile(request):
     elif request.method == "GET":
         data = request.user
         address = Address.objects.filter(customer_id=data.id)
-        return render(request,"accounts/profile.html",{"data" : data,"address":address})
+        cdata = cart_data_add(request.user.id)
+        return render(request,"accounts/profile.html",{"data" : data,"address":address,"cdata":cdata})
 
 def edit_address(request):
     if request.method == "POST":
@@ -89,7 +96,8 @@ def edit_address(request):
         data = request.user
         address = Address.objects.filter(customer_id=data.id)
         cnt = len(address)
-        return render(request,"accounts/edit_address.html",{"data" : data,"address":address,"cnt":cnt})
+        cdata = cart_data_add(request.user.id)
+        return render(request,"accounts/edit_address.html",{"data" : data,"address":address,"cnt":cnt,"cdata":cdata})
 
 def remove_address(request,id):
     data = Address.objects.filter(id = id)
