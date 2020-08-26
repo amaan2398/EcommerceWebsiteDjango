@@ -2,12 +2,28 @@
 
 {% block content %}
 <br>
+{% if tag|length > 0 %}
+{% for i in tag %}
+<h4 style="display:inline;"><span class="badge badge-info"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tag" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M2 2v4.586l7 7L13.586 9l-7-7H2zM1 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2z"/>
+    <path fill-rule="evenodd" d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+  </svg>
+  {{i}}</span></h4>
+{% endfor %}
+<br>
+<br>
+{% endif%}
+{% if data|length == 0 %}
+        <center>
+            <h2 style="color: gray;">No data available</h2>
+        </center>
+        {% endif %}
     <div class="row row-cols-1 row-cols-md-4">
         {% for item in data %}
             <div class="col mb-4" >
-                <a href="product/{{item.id}}">
+                <a href="../../../../product/{{item.id}}">
                 <div class="card rounded-lg" >
-                    <img src="{{item.image.url}}" class="card-img-top" alt="...">
+                    <img src="{{item.image.url}}" class="card-img-top" style="width:256px;height:256px; align-self: center; object-fit: contain;" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{item.name}}</h5>
                         <p class="card-text">₹ {{item.price}}</p>
@@ -15,7 +31,7 @@
                         
                         {% if user.is_authenticated %}
                         <p>
-                            <a href="cart/addtocart/{{item.id}}" class="btn btn-primary" type="button">
+                            <a href="../../../cart/addtocart/{{item.id}}" class="btn btn-primary" type="button">
                                 <svg width="20px" height="20px" viewBox="0 0 20 20" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
                                     <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0v-2z"/>

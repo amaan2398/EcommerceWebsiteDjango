@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from .models import Address
 from cart.models import Cart, Shipment
 from product.models import Product
+
 
 def cart_data_add(cid):
     data = Cart.objects.filter(customer_id=cid,shipment=False)
@@ -48,7 +49,10 @@ def register(request):
             messages.info(request,"Password not matching ...")
             return redirect("register")
     elif request.method == "GET":
-        return render(request,"accounts/register.html",{})
+        if request.user.id == None:
+            return render(request,"accounts/register.html",{})
+        else:
+            return HttpResponseNotFound()
 
 def login(request):
     if request.method == "POST":
@@ -62,7 +66,10 @@ def login(request):
             messages.info(request,"Wrong username or password...")
             return redirect("login")
     elif request.method == "GET":
-        return render(request,"accounts/login.html",{})
+        if request.user.id == None:
+            return render(request,"accounts/login.html",{})
+        else:
+            return HttpResponseNotFound()
 
 def logout(request):
     auth.logout(request)

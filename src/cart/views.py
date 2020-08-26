@@ -93,15 +93,18 @@ def checkout_products(request):
 
 def checkout_shipment(request):
     cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
-    tamount = 0
-    for i in cdata:
-        t_d = Product.objects.filter(id=i.product_id)
-        tamount += t_d[0].price * i.product_quantity
-    cid = request.user.id
-    s = Shipment(customer_id= cid,total_amount=tamount)
-    s.save()
-    Cart.objects.filter(customer_id= cid,shipment=False).update(shipment = True,bill_id=s.id)
-    return redirect('shipment_id',s.id)
+    if len(cdata) > 0:
+        tamount = 0
+        for i in cdata:
+            t_d = Product.objects.filter(id=i.product_id)
+            tamount += t_d[0].price * i.product_quantity
+        cid = request.user.id
+        s = Shipment(customer_id= cid,total_amount=tamount)
+        s.save()
+        Cart.objects.filter(customer_id= cid,shipment=False).update(shipment = True,bill_id=s.id)
+        return redirect('shipment_id',s.id)
+    else:
+        return HttpResponseNotFound()
 
 def shipment(request):
     if request.user.id != None:

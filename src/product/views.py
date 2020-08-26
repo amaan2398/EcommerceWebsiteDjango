@@ -12,8 +12,8 @@ def cart_data_add(cid):
 def index(request):
     data = Product.objects.all()
     for i,j in enumerate(data):
-        if len(j.description) > 27:
-            data[i].description = j.description[:27]+'...'
+        if len(j.description) > 20:
+            data[i].description = j.description[:20]+'...'
     a = ['active','','']
     cdata = cart_data_add(request.user.id)
     return render(request,"index.html",{'data' : data,"a": a,"cdata":cdata})
@@ -23,3 +23,29 @@ def product_view(request,id):
     a = ['','','']
     cdata = cart_data_add(request.user.id)
     return render(request,"product/show_product.html",{"data":data,"a": a,"cdata":cdata})
+
+def search(request):
+    s = request.GET['s']
+    lst = s.split(' ')
+    rpts = "description LIKE '%"
+    rpte = "%'"
+    a = ['','','']
+    cdata = cart_data_add(request.user.id)
+    q ="SELECT * FROM product_product WHERE "
+    if len(lst) > 0:
+        for i,j in enumerate(lst):
+            if i > 0:
+                q+=" or "
+            q += rpts+j+rpte
+        data = Product.objects.raw(q)
+        for i,j in enumerate(data):
+            if len(j.description) > 20:
+                data[i].description = j.description[:20]+'...'
+        return render(request,"index.html",{'data' : data,"a": a,"cdata":cdata,"tag":lst})
+
+    else:
+        data = Product.objects.all()
+        for i,j in enumerate(data):
+            if len(j.description) > 20:
+                data[i].description = j.description[:20]+'...'
+        return render(request,"index.html",{'data' : data,"a": a,"cdata":cdata})
