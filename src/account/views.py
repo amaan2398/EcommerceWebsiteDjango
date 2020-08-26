@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from .models import Address
-from cart.models import Cart
+from cart.models import Cart, Shipment
+from product.models import Product
 
 def cart_data_add(cid):
     data = Cart.objects.filter(customer_id=cid,shipment=False)
@@ -58,7 +59,7 @@ def login(request):
             auth.login(request,user)
             return redirect("/")
         else:
-            messages.info(request,"Wrong email or password...")
+            messages.info(request,"Wrong username or password...")
             return redirect("login")
     elif request.method == "GET":
         return render(request,"accounts/login.html",{})
@@ -80,7 +81,17 @@ def profile(request):
         data = request.user
         address = Address.objects.filter(customer_id=data.id)
         cdata = cart_data_add(request.user.id)
-        return render(request,"accounts/profile.html",{"data" : data,"address":address,"cdata":cdata})
+        sdata = Shipment.objects.filter(customer_id= request.user.id)
+        fdata = []
+        for i in sdata:
+            c_data = Cart.objects.filter(bill_id=i.id)
+            #cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
+            tamount = 0
+            for j in c_data:
+                t_d = Product.objects.filter(id=j.product_id)
+                tamount += t_d[0].price * j.product_quantity
+            fdata.append({'id':i.id,'tamount':tamount})
+        return render(request,"accounts/profile.html",{"data" : data,"address":address,"cdata":cdata,'sdata':sdata,'fdata':fdata})
 
 def edit_address(request):
     if request.method == "POST":

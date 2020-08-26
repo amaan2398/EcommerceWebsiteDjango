@@ -35,7 +35,7 @@
     <tr>
         <td>{{ forloop.counter }}</td>
         <td>{{d.p_id}}</td>
-        <td>{{d.p_name}}</td>
+        <td><a href="../../../product/{{d.p_id}}">{{d.p_name}}</a></td>
         <td>₹ {{d.price}}</td>
         <td> {{d.quantity}}</td>
         <td>₹ {{d.amount_t}}</td>
@@ -55,7 +55,7 @@
     <div class="col-md-7">
         {% for i in address %}
         <address> 
-            <h4>Destination Address</h4>
+            <h4>Shipping Address</h4>
             <strong>{{i.street_address}},</strong><br>
             {{i.city}}, {{i.state}},<br>
             {{i.country}},<br>
@@ -65,10 +65,9 @@
     </div>
     <div class="col-md-4">
         <h4>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-journal-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 1h5v1H4a1 1 0 0 0-1 1H2a2 2 0 0 1 2-2zm10 7v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8h1zM2 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2z"/>
-            <path fill-rule="evenodd" d="M13.5 1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V1.5a.5.5 0 0 1 .5-.5z"/>
-            <path fill-rule="evenodd" d="M13 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M15 4H1v8h14V4zM1 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H1z"/>
+            <path d="M13 4a2 2 0 0 0 2 2V4h-2zM3 4a2 2 0 0 1-2 2V4h2zm10 8a2 2 0 0 1 2-2v2h-2zM3 12a2 2 0 0 0-2-2v2h2zm7-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
           </svg>
           Total Amount: ₹{{fdata.total}}
         </h4>

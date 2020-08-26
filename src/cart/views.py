@@ -1,24 +1,33 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponseNotFound
 from .models import Cart,Shipment
 from product.models import Product
 from account.models import Address
 from django.contrib.auth.models import User,auth
 
+def cart_data_add(cid):
+    data = Cart.objects.filter(customer_id=cid,shipment=False)
+    data = dict({"count":len(data)})
+    return data
+
 # Create your views here.
 def cart(request):
-    a = ['','active','']
-    cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
-    data = []
-    tamount = 0
-    for i in cdata:
-        t_d = Product.objects.filter(id=i.product_id)
-        data.append(dict({"p_id":i.product_id,"p_name":t_d[0].name,"price":t_d[0].price,"quantity":i.product_quantity,"amount_t":(t_d[0].price * i.product_quantity)}))
-        tamount += t_d[0].price * i.product_quantity
-    fdata = dict({"total":tamount})
-    cid = request.user.id
-    cdata = dict({"count":len(data)})
-    address = Address.objects.filter(customer_id=cid)
-    return render(request,"product/cart.html",{"a":a,"data":data,"fdata":fdata,"address":address,"cdata":cdata})
+    if request.user.id != None:
+        a = ['','active','']
+        cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
+        data = []
+        tamount = 0
+        for i in cdata:
+            t_d = Product.objects.filter(id=i.product_id)
+            data.append(dict({"p_id":i.product_id,"p_name":t_d[0].name,"price":t_d[0].price,"quantity":i.product_quantity,"amount_t":(t_d[0].price * i.product_quantity)}))
+            tamount += t_d[0].price * i.product_quantity
+        fdata = dict({"total":tamount})
+        cid = request.user.id
+        cdata = dict({"count":len(data)})
+        address = Address.objects.filter(customer_id=cid)
+        return render(request,"product/cart.html",{"a":a,"data":data,"fdata":fdata,"address":address,"cdata":cdata})
+    else:
+        return redirect('login')
 
 def addtocart(request,id):
     cid = request.user.id
@@ -88,16 +97,47 @@ def checkout_shipment(request):
     for i in cdata:
         t_d = Product.objects.filter(id=i.product_id)
         tamount += t_d[0].price * i.product_quantity
-    s = Shipment(customer_id=request.user.id,total_amount=tamount)
+    cid = request.user.id
+    s = Shipment(customer_id= cid,total_amount=tamount)
     s.save()
-    Cart.objects.filter(customer_id= request.user.id,shipment=False).update(shipment = True,bill_id=s.id)
+    Cart.objects.filter(customer_id= cid,shipment=False).update(shipment = True,bill_id=s.id)
     return redirect('shipment_id',s.id)
 
 def shipment(request):
-    return render(request,'product/shipment.html',{})
+    if request.user.id != None:
+        sdata = Shipment.objects.filter(customer_id= request.user.id)
+        fdata = []
+        for i in sdata:
+            c_data = Cart.objects.filter(bill_id=i.id)
+            #cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
+            data = []
+            tamount = 0
+            for j in c_data:
+                t_d = Product.objects.filter(id=j.product_id)
+                data.append(t_d[0].name)
+                tamount += t_d[0].price * j.product_quantity
+            fdata.append({'id':i.id,'data':data,'tamount':tamount})
+            del data
+        print(fdata)
+        cdata = cart_data_add(request.user.id)
+        return render(request,'product/shipment.html',{'sdata':sdata,'fdata':fdata,'cdata':cdata})
+    else:
+        return redirect('login')
 
 def shipment_id(request,id):
-    data = Shipment.objects.filter(id=id)
+    sdata = Shipment.objects.filter(id=id)
     user = request.user
-    cart = Cart.objects.filter(bill_id=id)
-    return render(request,'product/shipment_view.html',{'data':data,'user':user,'cart':cart})
+    if user.id == sdata[0].customer_id:
+        cdata = Cart.objects.filter(bill_id=id)
+        #cdata = Cart.objects.filter(customer_id=request.user.id,shipment=False)
+        data = []
+        tamount = 0
+        for i in cdata:
+            t_d = Product.objects.filter(id=i.product_id)
+            data.append(dict({"p_id":i.product_id,"p_name":t_d[0].name,"price":t_d[0].price,"quantity":i.product_quantity,"amount_t":(t_d[0].price * i.product_quantity)}))
+            tamount += t_d[0].price * i.product_quantity
+        address = Address.objects.filter(customer_id=user.id,id=cdata[0].address_id)
+        cdata = cart_data_add(request.user.id)
+        return render(request,'product/shipment_view.html',{'data':data,'sdata':sdata,'cdata':cdata,'user':user,'tamount':tamount,'address':address})
+    else:
+        return HttpResponseNotFound()

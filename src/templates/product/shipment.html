@@ -1,4 +1,42 @@
 {% extends '../navbar.html' %}
 {% block shipment %}
-<h1>HELLO WORLD</h1>
+<center>
+<h1>All orders</h1>
+</center>
+{% if sdata|length == 0%}
+<center>
+<h1 style="color: gray;">No data Available right now!</h1>
+</center>
+{% endif %}
+<div class="card-deck">
+{% for i in sdata%}
+    {% if forloop.counter0|divisibleby:3 %}
+    </div>
+    <br>
+    <div class="card-deck">
+    {%endif%}
+    <a href="../../../cart/shipment/{{i.id}}" class="card">
+        <div class="card-body">
+        <h5 class="card-title">Order id: {{i.id}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{i.date_time}}</h6>
+        <p class="card-text">
+            {% for j in fdata%}
+            {% if j.id == i.id%}
+            {% for k in j.data %}
+            <ul>
+                <li>{{k}}</li>
+            </ul>
+            {% endfor %}
+            </p>
+            </div>
+            <div class="card-footer">
+            <center>
+            {{j.tamount}}
+            </center>
+            </div>
+            {% endif%}
+            {% endfor %}
+    </a>
+{% endfor %}
+</div>
 {% endblock  %}
