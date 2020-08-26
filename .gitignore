@@ -1,4 +1,5 @@
 .venv/
 .vscode/
 *.code-workspace
+*.sqlite3
 pics/
